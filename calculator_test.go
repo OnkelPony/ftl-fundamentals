@@ -52,10 +52,22 @@ func TestMultiply(t *testing.T) {
 
 func TestDivide(t *testing.T) {
 	t.Parallel()
-	var want float64 = 3
-	var a, b float64 = 6, 2
-	got := calculator.Divide(a, b)
-	if want != got {
-		t.Errorf("Divide(%.1f, %.1f) = %.1f, want %.1f", a, b, got, want)
+	tcs := []struct {
+		a, b        float64
+		want        float64
+		errExpected bool
+	}{
+		{a: 108, b: 4, want: 27, errExpected: false},
+		{a: 666, b: 0, want: 999, errExpected: true},
+	}
+	for _, tc := range tcs {
+		got, err := calculator.Divide(tc.a, tc.b)
+		errReceived := err != nil
+		if errReceived != tc.errExpected {
+			t.Fatalf("\"Divide(%.1f, %.1f): unexpected error status: %v", tc.a, tc.b, err)
+		}
+		if !errReceived && tc.want != got {
+			t.Errorf("Divide(%.1f, %.1f) = %.1f, want %.1f", tc.a, tc.b, got, tc.want)
+		}
 	}
 }
