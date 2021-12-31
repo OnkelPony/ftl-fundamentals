@@ -35,3 +35,11 @@ func (b Book) NetPrice() int {
 func (b Book) SalePrice() int {
 	return b.PriceCents / 2
 }
+
+func (b *Book) SetPriceCents(p int) {
+	b.PriceCents = p
+}
+
+func (catalog Catalog) AddBook(id string, book Book) {
+	catalog[id] = book
+}

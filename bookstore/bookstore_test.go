@@ -93,3 +93,35 @@ func TestSalePrice(t *testing.T) {
 		t.Error(cmp.Diff(want, got))
 	}
 }
+
+func TestSetPriceCents(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{
+		Title:      "O smrti a znovuzrození",
+		Author:     "Ole Nydahl",
+		PriceCents: 666,
+	}
+	b.SetPriceCents(1080)
+	want := 1080
+	got := b.PriceCents
+	if !cmp.Equal(want, got) {
+		t.Error(cmp.Diff(want, got))
+	}
+}
+
+func TestAddBook(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{
+		Title:      "Buddha a láska",
+		Author:     "Ole Nydahl",
+		PriceCents: 1080,
+	}
+	id := "108"
+	c := bookstore.Catalog{}
+	c.AddBook(id, b)
+	want := "Buddha a láska od Ole Nydahl"
+	got := c.GetBookDetails(id)
+	if !cmp.Equal(want, got) {
+		t.Error(cmp.Diff(want, got))
+	}
+}
