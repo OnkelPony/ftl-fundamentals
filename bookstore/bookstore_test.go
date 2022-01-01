@@ -70,9 +70,9 @@ func TestGetBookDetails(t *testing.T) {
 func TestNetPrice(t *testing.T) {
 	t.Parallel()
 	b := bookstore.Book{
-		Title:           "Jak se věci mají",
-		PriceCents:      1000,
-		DiscountPercent: 27}
+		Title:      "Jak se věci mají",
+		PriceCents: 1000,
+	}
 	want := 730
 	got := b.NetPrice()
 	if !cmp.Equal(want, got) {
@@ -121,6 +121,24 @@ func TestAddBook(t *testing.T) {
 	c.AddBook(id, b)
 	want := "Buddha a láska od Ole Nydahl"
 	got := c.GetBookDetails(id)
+	if !cmp.Equal(want, got) {
+		t.Error(cmp.Diff(want, got))
+	}
+}
+
+func TestSetDiscountPercent(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{
+		Title:      "Ngöndro",
+		PriceCents: 1080,
+	}
+	err := b.SetDiscountPercent(108)
+	if err == nil {
+		t.Error("SetDiscountPercent should have returned error, but it didn't")
+	}
+	err = b.SetDiscountPercent(6)
+	want := 6
+	got := b.GetDiscountPercent()
 	if !cmp.Equal(want, got) {
 		t.Error(cmp.Diff(want, got))
 	}
