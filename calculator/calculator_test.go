@@ -2,6 +2,7 @@ package calculator_test
 
 import (
 	"calculator"
+	"math"
 	"testing"
 )
 
@@ -80,6 +81,7 @@ func TestSqrt(t *testing.T) {
 		errExpected bool
 	}{
 		{a: 64, want: 8, errExpected: false},
+		{a: 108, want: 10.39, errExpected: false},
 		{a: -64, want: 666, errExpected: true},
 	}
 	for _, tc := range tcs {
@@ -88,8 +90,13 @@ func TestSqrt(t *testing.T) {
 		if errReceived != tc.errExpected {
 			t.Fatalf("\"Sqrt(%.1f): unexpected error status: %v", tc.a, err)
 		}
-		if !errReceived && tc.want != got {
+		const tolerance = 0.108
+		if !errReceived && !closeEnough(tc.want, got, tolerance) {
 			t.Errorf("Sqrt(%.1f) = %.1f, want %.1f", tc.a, got, tc.want)
 		}
 	}
+}
+
+func closeEnough(a float64, b float64, tolerance float64) bool {
+	return math.Abs(a-b) <= tolerance
 }
