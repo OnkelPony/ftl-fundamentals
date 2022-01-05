@@ -49,7 +49,14 @@ func TestGetAllBooks(t *testing.T) {
 			Title:        "Křik Halidonu",
 			Author:       "Robert Ludlum",
 			Count:        6,
-			SeriesNumber: 2,
+			SeriesNumber: 9,
+		},
+		{
+			ID:           "3",
+			Title:        "Špion vypovídá",
+			Author:       "Josef Frolík",
+			Count:        2,
+			SeriesNumber: 1,
 		},
 	}
 	got := catalog.GetAllBooks()
