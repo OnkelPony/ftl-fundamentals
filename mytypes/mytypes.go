@@ -10,6 +10,12 @@ type IntBuilder struct {
 	Contents []int
 }
 
+type MyInt int
+
+func (i MyInt) Triple() MyInt {
+	return 3 * i
+}
+
 func (su StringUppercaser) ToUpper() string {
 	return strings.ToUpper(su.Contents.String())
 }

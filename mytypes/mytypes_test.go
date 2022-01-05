@@ -24,3 +24,14 @@ func TestSum(t *testing.T) {
 		t.Errorf("want: %d, got: %d", want, got)
 	}
 }
+
+func TestTriple(t *testing.T) {
+	t.Parallel()
+	var input mytypes.MyInt = 108
+	//input := mytypes.MyInt(108) - looks better
+	want := mytypes.MyInt(324)
+	got := input.Triple()
+	if want != got {
+		t.Errorf("want: %d, got: %d", want, got)
+	}
+}
