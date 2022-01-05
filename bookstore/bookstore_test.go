@@ -159,3 +159,17 @@ func TestSetDiscountPercent(t *testing.T) {
 		t.Error(cmp.Diff(want, got))
 	}
 }
+
+func TestSetCategory(t *testing.T) {
+	t.Parallel()
+	b := bookstore.Book{
+		Title:  "Ngöndro",
+		Author: "Ole Nydahl",
+	}
+	b.SetCategory(bookstore.CategoryBuddhism)
+	want := bookstore.CategoryBuddhism
+	got := b.Category()
+	if !cmp.Equal(want, got) {
+		t.Error(cmp.Diff(want, got))
+	}
+}

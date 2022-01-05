@@ -5,6 +5,16 @@ import (
 	"fmt"
 )
 
+const (
+	CategoryFood Category = iota
+	CategoryBuddhism
+	CategoryThriller
+	CategoryDrama
+	CategoryGolang
+)
+
+type Category int
+
 type Book struct {
 	ID              string
 	Title           string
@@ -13,6 +23,7 @@ type Book struct {
 	SeriesNumber    int
 	PriceCents      int
 	discountPercent int
+	category        Category
 }
 
 type Catalog map[string]Book
@@ -57,4 +68,12 @@ func (b Book) GetDiscountPercent() int {
 
 func (catalog Catalog) AddBook(id string, book Book) {
 	catalog[id] = book
+}
+
+func (b *Book) SetCategory(category Category) {
+	b.category = category
+}
+
+func (b Book) Category() Category {
+	return b.category
 }
