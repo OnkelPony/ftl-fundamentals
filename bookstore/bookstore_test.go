@@ -3,6 +3,7 @@ package bookstore_test
 import (
 	"bookstore"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"testing"
 )
 
@@ -67,7 +68,7 @@ func TestGetAllBooks(t *testing.T) {
 		},
 	}
 	got := catalog.GetAllBooks()
-	if !cmp.Equal(want, got) {
+	if !cmp.Equal(want, got, cmpopts.IgnoreUnexported(bookstore.Book{})) {
 		t.Error(cmp.Diff(want, got))
 	}
 }
@@ -88,6 +89,7 @@ func TestNetPrice(t *testing.T) {
 		PriceCents: 1000,
 	}
 	want := 730
+	b.SetDiscountPercent(27)
 	got := b.NetPrice()
 	if !cmp.Equal(want, got) {
 		t.Error(cmp.Diff(want, got))
