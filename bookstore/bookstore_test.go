@@ -7,6 +7,13 @@ import (
 )
 
 var catalog = bookstore.Catalog{
+	"3": {
+		ID:           "3",
+		Title:        "Špion vypovídá",
+		Author:       "Josef Frolík",
+		Count:        2,
+		SeriesNumber: 1,
+	},
 	"1": {
 		ID:           "1",
 		Title:        "Ikona",
